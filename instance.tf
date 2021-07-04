@@ -4,6 +4,8 @@ resource "aws_key_pair" "key" {
 
   key_name      = "${var.project}-keypair"
   public_key    = file("rahul.pub")
+## need to create a sshkeypair using ssh-keygen with name different name and reblace above line
+
   tags = {
     Name = "${var.project}-keypair"
   }

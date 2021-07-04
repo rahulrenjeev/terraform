@@ -26,6 +26,10 @@ resource "aws_security_group" "ssh" {
     tags = {
     Name = "${var.project}-ssh"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 
@@ -49,7 +53,7 @@ resource "aws_security_group" "web" {
         from_port           = 22
         to_port             = 22
         protocol            = "tcp"
-        security_groups      = ["aws_security_group.ssh.id"]
+        security_groups      = [aws_security_group.ssh.id]
     }
 
       ingress {
@@ -72,6 +76,10 @@ resource "aws_security_group" "web" {
     tags = {
     Name = "${var.project}-web"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 
@@ -87,14 +95,14 @@ resource "aws_security_group" "db" {
         from_port           = 3306
         to_port             = 3306
         protocol            = "tcp"
-        security_groups      = ["aws_security_group.web.id"]
+        security_groups      = [aws_security_group.web.id]
     }
 
     ingress {
         from_port           = 22
         to_port             = 22
         protocol            = "tcp"
-        security_groups      = ["aws_security_group.ssh.id"]
+        security_groups      = [aws_security_group.ssh.id]
     }
 
       
@@ -109,4 +117,8 @@ resource "aws_security_group" "db" {
     tags = {
     Name = "${var.project}-database"
   }
+lifecycle {
+    create_before_destroy = true
+  }
+
 }
