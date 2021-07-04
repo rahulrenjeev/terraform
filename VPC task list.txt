@@ -1,0 +1,8 @@
+Created VPS
+Subnet public 1,2,3
+Subnet private 1,2,3
+internet gateway
+Elastic IP
+nat gateway
+route table 
+security 
